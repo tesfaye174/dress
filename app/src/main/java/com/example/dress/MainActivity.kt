@@ -4,15 +4,17 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.*
-import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.input.TextFieldValue
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.example.dress.ui.screens.HomeScreen
+import com.example.dress.ui.screens.WardrobeScreen
+import com.example.dress.ui.screens.RecommendationsScreen
 import com.example.dress.ui.theme.DressTheme
 
 class MainActivity : ComponentActivity() {
@@ -22,7 +24,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             DressTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    MainScreen(modifier = Modifier.padding(innerPadding))
+                    DressApp(modifier = Modifier.padding(innerPadding))
                 }
             }
         }
@@ -30,47 +32,28 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun MainScreen(modifier: Modifier = Modifier) {
-    var name by remember { mutableStateOf("") }
-    var showGreeting by remember { mutableStateOf(false) }
-
-    Column(
+fun DressApp(modifier: Modifier = Modifier) {
+    val navController = rememberNavController()
+    
+    NavHost(
+        navController = navController,
+        startDestination = "home",
         modifier = modifier
-            .fillMaxSize()
-            .padding(16.dp),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(
-            text = "Benvenuto nell'App Dress!",
-            style = MaterialTheme.typography.headlineMedium,
-            modifier = Modifier.padding(bottom = 16.dp)
-        )
-        OutlinedTextField(
-            value = name,
-            onValueChange = {
-                name = it
-                showGreeting = false
-            },
-            label = { Text("Inserisci il tuo nome") },
-            singleLine = true,
-            modifier = Modifier.fillMaxWidth()
-        )
-        Button(
-            onClick = { showGreeting = name.isNotBlank() },
-            enabled = name.isNotBlank(),
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 16.dp)
-        ) {
-            Text(text = "Saluta")
+        composable("home") {
+            HomeScreen(
+                onNavigateToWardrobe = { navController.navigate("wardrobe") },
+                onNavigateToRecommendations = { navController.navigate("recommendations") }
+            )
         }
-        AnimatedVisibility(visible = showGreeting) {
-            Text(
-                text = "Ciao, $name!",
-                style = MaterialTheme.typography.bodyLarge,
-                color = MaterialTheme.colorScheme.primary,
-                modifier = Modifier.padding(top = 16.dp)
+        composable("wardrobe") {
+            WardrobeScreen(
+                onNavigateBack = { navController.popBackStack() }
+            )
+        }
+        composable("recommendations") {
+            RecommendationsScreen(
+                onNavigateBack = { navController.popBackStack() }
             )
         }
     }
