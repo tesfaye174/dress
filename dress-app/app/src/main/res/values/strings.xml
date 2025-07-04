@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Dress App</string>
+    <string name="welcome_message">Benvenuto nell'app Dress!</string>
+    <string name="description">Un'applicazione per aiutarti a scegliere il tuo outfit ideale.</string>
+    <string name="light_theme">Tema Chiaro</string>
+    <string name="dark_theme">Tema Scuro</string>
+    <string name="settings">Impostazioni</string>
+    <string name="about">Informazioni</string>
+    <string name="exit">Esci</string>
+</resources>
