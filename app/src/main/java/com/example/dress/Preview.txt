@@ -1,7 +1,0 @@
-@Preview(showBackground = true)
-@Composable
-fun MainScreenPreview() {
-    DressTheme {
-        MainScreen()
-    }
-}

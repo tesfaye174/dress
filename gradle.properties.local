@@ -1,0 +1,15 @@
+# Crea questo file nella directory del progetto
+# Lo scopo è generare un file gradle.properties locale per sovrascrivere le impostazioni di cache
+
+# Disattiva la cache di Gradle che può causare problemi di risoluzione delle dipendenze
+org.gradle.caching=false
+
+# Disabilita l'offline mode per forzare il download delle dipendenze
+org.gradle.offline=false
+
+# Imposta il timeout delle connessioni più alto
+systemProp.org.gradle.internal.http.connectionTimeout=180000
+systemProp.org.gradle.internal.http.socketTimeout=180000
+
+# Pulisci il file di lockfile per evitare problemi di blocco
+org.gradle.internal.use.jvmlockfile=false

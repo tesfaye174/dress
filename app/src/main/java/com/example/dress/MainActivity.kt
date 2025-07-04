@@ -6,9 +6,10 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.*
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -47,21 +48,18 @@ fun DressApp(modifier: Modifier = Modifier) {
             )
         }
         composable("wardrobe") {
-            WardrobeScreen(
-                onNavigateBack = { navController.popBackStack() }
-            )
+            WardrobeScreen(onNavigateBack = { navController.popBackStack() })
         }
         composable("recommendations") {
-            RecommendationsScreen(
-                onNavigateBack = { navController.popBackStack() }
-            )
+            RecommendationsScreen(onNavigateBack = { navController.popBackStack() })
         }
     }
 }
+
 @Preview(showBackground = true)
 @Composable
-fun MainScreenPreview() {
+fun DressAppPreview() {
     DressTheme {
-        MainScreen()
+        DressApp()
     }
 }
